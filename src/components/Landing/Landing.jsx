@@ -1,9 +1,5 @@
 //POR HACER  el select en modo celular sale de linea
 
-
-
-
-
 import { useEffect, useState } from 'react';
 import FondoAzul from '../../assets/FondoAzul.jpg';
 import { fillClientData } from '../../actions/actions';
