@@ -164,118 +164,142 @@ function ShowMonth() {
 
 
   return (
+    // inicio de toda la pantall que tiene imagen de muela de fondo
     <div className="w-full h-auto"
+    // <div className="w-full h-auto"
         style={{backgroundImage: `url(${FondoAzul})`}}
     >
+
+
+
+
+
+
+
+        {/* div inicio del contenedor de todo y que ocupa solo 3/4 del ancho de la pantall de fondo de pantalla? */}
         <div
-            className="w-auto pt-4 sm:pt-8 mx-2 sm:w-3/4 h-auto sm:mx-auto bg-no-repeat bg-contain bg-right "
+            className="w-auto sm:w-3/4   h-auto  pt-4 sm:pt-8 mx-2 sm:mx-auto bg-no-repeat bg-contain bg-right bg-orange-400"
         >
 
 
 
 
 
-
+            {/* inicio del div cuadrado traslucido que contiene todo el elija un turno y los inputs y los botones */}
             <div
                 className='py-2 sm:py-4 bg-black bg-opacity-30 shadow-black shadow-md'
             >
-            <h2
-                className="text-center mb-3 sm:mb-6 font-Saira text-3xl sm:text-5xl text-gray-400 font-extralight"
-            >ELIJA UN TURNO:
-            </h2>
-           
-
-            <div
-                className="flex flex-col justify-center "
-            >
-                        <div
-                            className="flex flex-row justify-center mb-6 items-center"
-                        >
-                            <p
-                                className="pr-2 font-Saira text-2xl sm:text-3xl text-white font-light "
-                            >Año:</p>
-                            <select
-                                className="border-2  w-40 border-black text-center font-Saira text-2xl sm:text-md text-gray-700 font-light"
-                                onChange={(e)=>handleYear(e)}
-                            >
-                                <option value='0'>- ? -</option>
-                                <option value='2023'>2023</option>
-                                <option value='2024'>2024</option>
-                                <option value='2025'>2025</option>
-                                <option value='2026'>2026</option>
-                            </select>
-
-                            <p
-                                className="ml-5 pr-2 font-Saira text-2xl sm:text-3xl text-white font-light "
-                            >Mes:</p>
-                            <select
-                                className="border-2 border-black text-center font-Saira text-2xl sm:text-md text-gray-700 font-light"
-                                onChange={(e)=>handleMonth(e)}
-                            >
-                                <option value='0'>- ? -</option>
-                                <option value='1'>Enero</option>
-                                <option value='2'>Febrero</option>
-                                <option value='3'>Marzo</option>
-                                <option value='4'>Abril</option>
-                                <option value='5'>Mayo</option>
-                                <option value='6'>Junio</option>
-                                <option value='7'>Julio</option>
-                                <option value='8'>Agosto</option>
-                                <option value='9'>Septiembre</option>
-                                <option value='10'>Octubre</option>
-                                <option value='11'>Noviembre</option>
-                                <option value='12'>Diciembre</option>
-                            </select>
 
 
+                <h2
+                    className="text-center mb-3 sm:mb-6 font-Saira text-3xl sm:text-5xl text-gray-400 font-extralight"
+                >ELIJA UN TURNO:
+                </h2>
 
 
-
-
-                        </div>
-                        
-                        <div
-                            className="flex flex-row justify-center"
-                        >
-                            
-                        </div>
-                        <div
-                            className='w-full flex flex-row justify-center'
-                            >
-                        { localMonth!='0' && localYear!='0' && user!='' &&
-                            <button
-                            className='flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/4 bg-red-700 bg-opacity-60 font-Saira text-2xl hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-red-500'
-                            onClick={handleGetTurns}
-                        >Buscar</button>}
-
-                        { (localMonth==='0' || localYear==='0' || user=='') &&
-                            <button
-                            className='mr-1 rounded-md h-10 w-1/4 bg-gray-700 bg-opacity-30 font-Saira text-2xl sm:text-3xl text-gray-700 font-thin  '
-                            disabled
-                        >Buscar</button>}
-                        <Link
-                            onClick={handleClearClient}
-                            to={`/`}
-                            className='flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl ml-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue'
-                        >Cambiar Usuario</Link>
-                        </div> 
-
-            </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
-           
+                {/* Div a continuacion que tiene input de ano, mes y 2 botones */}
                 <div
-                    className='mt-4 sm:mt-10 w-full sm:w-4/6 mx-auto h-10 grid grid-cols-7 grid-rows-1 border-2 bg-black border-black font-Saira text-2xl sm:text-3xl text-white font-light'
+                    className="flex flex-col justify-center"
                 >
+
+
+
+                            {/* inicio div que contiene la linea ano, input, mes, input */}
+                            <div
+                                className="flex flex-row justify-center mb-6 items-center"
+                            >
+                                <p
+                                    className="pr-2 font-Saira text-2xl sm:text-3xl text-white font-light "
+                                >Año:</p>
+                                <select
+                                    className="border-2  w-40 border-black text-center font-Saira text-2xl sm:text-md text-gray-700 font-light"
+                                    onChange={(e)=>handleYear(e)}
+                                >
+                                    <option value='0'>- ? -</option>
+                                    <option value='2023'>2023</option>
+                                    <option value='2024'>2024</option>
+                                    <option value='2025'>2025</option>
+                                    <option value='2026'>2026</option>
+                                </select>
+
+                                <p
+                                    className="ml-5 pr-2 font-Saira text-2xl sm:text-3xl text-white font-light "
+                                >Mes:</p>
+                                <select
+                                    className="border-2 border-black text-center font-Saira text-2xl sm:text-md text-gray-700 font-light"
+                                    onChange={(e)=>handleMonth(e)}
+                                >
+                                    <option value='0'>- ? -</option>
+                                    <option value='1'>Enero</option>
+                                    <option value='2'>Febrero</option>
+                                    <option value='3'>Marzo</option>
+                                    <option value='4'>Abril</option>
+                                    <option value='5'>Mayo</option>
+                                    <option value='6'>Junio</option>
+                                    <option value='7'>Julio</option>
+                                    <option value='8'>Agosto</option>
+                                    <option value='9'>Septiembre</option>
+                                    <option value='10'>Octubre</option>
+                                    <option value='11'>Noviembre</option>
+                                    <option value='12'>Diciembre</option>
+                                </select>
+                            </div>
+                            {/* fin div que contiene la linea ano, input, mes, input */}
+                            
+
+
+
+                            {/* <div
+                                className="flex flex-row justify-center"
+                            >
+                                
+                            </div> */}
+
+
+                            {/* inicio div contenedor de boton buscar y cambiar usuario     */}
+                            <div
+                                className='w-full flex flex-row justify-center'
+                                >
+                                    { localMonth!='0' && localYear!='0' && user!='' &&
+                                        <button
+                                        className='flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/4 bg-red-700 bg-opacity-60 font-Saira text-2xl hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-red-500'
+                                        onClick={handleGetTurns}
+                                    >Buscar</button>}
+
+                                    { (localMonth==='0' || localYear==='0' || user=='') &&
+                                        <button
+                                        className='mr-1 rounded-md h-10 w-1/4 bg-gray-700 bg-opacity-30 font-Saira text-2xl sm:text-3xl text-gray-700 font-thin  '
+                                        disabled
+                                    >Buscar</button>}
+
+                                    <Link
+                                        onClick={handleClearClient}
+                                        to={`/`}
+                                        className='flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl ml-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue'
+                                    >Cambiar Usuario</Link>
+
+                            </div> 
+                            {/* fin div contenedor de boton buscar y cambiar usuario     */}
+
+                </div>
+                {/* find del Div que tiene input de ano, mes y 2 botones */}
+
+            </div>
+            {/* fin del div cuadrado traslucido que contiene todo el elija un turno y los inputs y los botones */}
+
+
+
+
+
+
+
+
+
+
+            {/* inicio del div contenedor de recuador de dias de la semana en negro y blanco                 */}
+            <div
+                className='mt-4 sm:mt-10 w-full sm:w-4/6 mx-auto h-10 grid grid-cols-7 grid-rows-1 border-2 bg-black border-black font-Saira text-2xl sm:text-3xl text-white font-light'
+            >
                    <p
                         className='flex flex-col justify-center w-full h-10  col-start-1 col-end-2 text-center '
                    >DO
@@ -304,29 +328,38 @@ function ShowMonth() {
                         className='flex flex-col justify-center w-full h-10 col-start-7 col-end-8 text-center'
                    >SA
                     </p> 
+            </div>
+            {/* fin del div contenedor de recuador de dias de la semana en negro y blanco                 */}
 
 
-                </div>
+
+
+
+            {/* inicio del contenedor de la grilla de dias                 */}
+            <div
+                className='mt-1 w-full h-full sm:w-4/6 mx-auto  grid gap-1 grid-cols-7 grid-rows-6 '
+            >
+                {monthTurns.length>0 && monthTurns.map((item, index) => {return <DayComponent
+                                                    handleOneDay={handleOneDay}
+                                                    key={index}
+                                                    data={item}
+                />}
+                                    )}
+            </div>
+            {/* fin del contenedor de la grilla de dias */}
 
 
 
 
-                <div
-                    className='mt-1 w-full h-full sm:w-4/6 mx-auto  grid gap-1 grid-cols-7 grid-rows-6 bg-yellow-600'
-                >
-                
-                
-                   {monthTurns.length>0 && monthTurns.map((item, index) => {return <DayComponent
-                                                        handleOneDay={handleOneDay}
-                                                        key={index}
-                                                        data={item}
-                   />}
-                                        )}
-                                   
 
-                </div>
+
+
+
 
         </div>
+        {/* div fin del contenedor de todo y que ocupa solo 3/4 del ancho de la pantall de fondo de pantalla? */}            
+
+
 
 
 
@@ -357,7 +390,12 @@ function ShowMonth() {
         </Modal>}    
 
 
+
+
+
+
     </div>
+    // fin de toda la pantall que tiene imagen de muela de fondo
   )
 }
 
