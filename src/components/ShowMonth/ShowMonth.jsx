@@ -164,7 +164,8 @@ function ShowMonth() {
 
 
   return (
-    <div className="w-full "
+    <div className="w-full h-full"
+    // <div className="w-full " />/antes de tocar todo
         style={{backgroundImage: `url(${FondoAzul})`}}
     >
         <div
