@@ -165,7 +165,8 @@ function ShowMonth() {
 
   return (
     // inicio de toda la pantall que tiene imagen de muela de fondo
-    <div className="w-full h-full sm:h-auto"
+    <div className="w-full h-auto sm:h-auto"
+    // <div className="w-full h-full sm:h-auto"
         style={{backgroundImage: `url(${FondoAzul})`}}
     >
 
@@ -297,7 +298,7 @@ function ShowMonth() {
 
             {/* inicio del div contenedor de recuador de dias de la semana en negro y blanco                 */}
             <div
-                className='mt-4 sm:mt-10 w-full sm:w-4/6 mx-auto h-10 grid grid-cols-7 grid-rows-1 border-2 bg-black border-black font-Saira text-2xl sm:text-3xl text-white font-light'
+                className='mt-6 sm:mt-10 w-full sm:w-4/6 mx-auto h-10 grid grid-cols-7 grid-rows-1 border-2 bg-black border-black font-Saira text-2xl sm:text-3xl text-white font-light'
             >
                    <p
                         className='flex flex-col justify-center w-full h-10  col-start-1 col-end-2 text-center '
