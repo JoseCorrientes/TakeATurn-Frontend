@@ -25,6 +25,7 @@ const VITE_APP_API = import.meta.env.VITE_APP_API;
 console.log('VITE_APP_API: ')
 console.log(VITE_APP_API)
 console.log('----------------')
+console.log('----------------')
 
 
 
