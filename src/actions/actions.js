@@ -298,7 +298,7 @@ export function getMonthTurns(data) {
                                         payload: result,
                                     })
                     } else {
-                                    console.log('no ese pudo recuperar status no ok')
+                                    console.log('no ese pudo recuperar status no ok estamos probando')
                                     let result = {
                                         data: '',
                                         data2: [],
