@@ -164,7 +164,7 @@ function ShowMonth() {
 
 
   return (
-    // inicio de toda la pantall que tiene imagen de muela de fondo
+    // inicio de toda la pantall que tiene imagen de muela de fondo probando para cel
     <div className="w-full h-auto sm:h-auto"
     // <div className="w-full h-full sm:h-auto"
         style={{backgroundImage: `url(${FondoAzul})`}}
