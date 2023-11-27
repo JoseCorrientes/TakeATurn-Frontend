@@ -28,7 +28,8 @@ console.log('----------------')
 
 
 
-const host= VITE_APP_API || 'http://localhost:3001';
+// const host= VITE_APP_API || 'http://localhost:3001';
+const host= VITE_APP_API ;
 
 console.log( 'el host queda como : ')
 console.log(host)
