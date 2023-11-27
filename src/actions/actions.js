@@ -21,7 +21,19 @@ import {
 import axios from 'axios';
 
 const VITE_APP_API = import.meta.env.VITE_APP_API;
+
+console.log('VITE_APP_API: ')
+console.log(VITE_APP_API)
+console.log('----------------')
+
+
+
 const host= VITE_APP_API || 'http://localhost:3001';
+
+console.log( 'el host queda como : ')
+console.log(host)
+console.log('-------------------------')
+
 
 // [{day: 1, offDuty: false, type: 'day', turns: [{index: 0,  offDuty: false, status: 'free', turnName: '0800'},{ }    ]}]  index0 se refiere al primer turno del arreglo turns[0]
 
@@ -264,6 +276,8 @@ export function saveTurn (data) {
 export function getMonthTurns(data) {
     return async function(dispatch) {
 
+
+
         let options = {
             method: 'get',
             url: `${host}/turns`,
@@ -284,6 +298,7 @@ export function getMonthTurns(data) {
                                         payload: result,
                                     })
                     } else {
+                                    console.log('no ese pudo recuperar status no ok')
                                     let result = {
                                         data: '',
                                         data2: [],
