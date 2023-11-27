@@ -312,7 +312,7 @@ function ShowMonth() {
 
 
                 <div
-                    className='mt-1 w-full h-auto sm:w-4/6 mx-auto  grid gap-1 grid-cols-7 grid-rows-6'
+                    className='mt-1 w-full h-full sm:w-4/6 mx-auto  grid gap-1 grid-cols-7 grid-rows-6 bg-yellow-600'
                 >
                 
                 
