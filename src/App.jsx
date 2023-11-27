@@ -8,8 +8,7 @@ function App() {
   return (
     <BrowserRouter>
         <div
-            className='w-auto h-full sm:h-screen'
-            // className='w-auto h-screen'  probemos
+            className='w-auto h-screen sm:h-screen '
         >
             <Header/>
             <Routes>

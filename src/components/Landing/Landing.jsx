@@ -45,8 +45,8 @@ const handleSearch = ()=>{
 
   return (
     <div
-        className="flex flex-row justify-center w-auto h-full  bg-no-repeat bg-fixed bg-contain bg-right bg-mayra-dark-blue"
-        // className="w-screen h-full bg-fixed bg-contain bg-no-repeat bg-right bg-mayra-dark-blue"
+        className="flex flex-row justify-center w-auto h-screen  bg-repeat bg-fixed bg-contain bg-right bg-mayra-dark-blue  "
+        // className="flex flex-row justify-center w-auto h-screen  bg-no-repeat bg-fixed bg-contain bg-right bg-mayra-dark-blue  "
         style={{backgroundImage: `url(${FondoAzul})`}}
     >
         
@@ -94,22 +94,7 @@ const handleSearch = ()=>{
                         value={2}
                     >Melissa Aguirre</option>
                 </select>
-                {/* <select
-                    className='w-3/4 h-[2rem] px-1 sm:w-1/3 mb-4 sm:h-1/6 sm:px-2 sm:mb-1  text-center'
-                    //className='w-1/3 h-1/6 text-center'
-                    onChange={(e)=>handleChangeDoctor(e)}
-                >
-                    <option
-                        className='bg-white text-gray-400'  
-                        value={0}
-                    >Seleccione Doctor</option>
-                    <option
-                        value={1}
-                    >Maira Aresti</option>
-                    <option
-                        value={2}
-                    >Melissa Aguirre</option>
-                </select> */}
+               
 
                 {emailValid && userValid && doctor!=0 && <Link
                     className='flex flex-row justify-center items-center mt-3 w-2/3 sm:w-1/6 h-1/6  text-center border-2 border-mayra-light-blue rounded-lg font-Saira text-2xl sm:text-3xl text-white font-thin hover:bg-black hover:border-4 hover:border-mayra-light-blue hover:text-4xl ' 
@@ -127,7 +112,7 @@ const handleSearch = ()=>{
                 >
                     Buscar
                 </button>
-}
+                }
 
 
 
