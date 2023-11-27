@@ -23,7 +23,7 @@ function DayComponent({data, handleOneDay}) {
             >
             </div>
         )
-//parte que pinta en otro color si tiene turno        
+//parte que pinta en otro color si tiene turno  --       
 } else if (data.type=='day' && dayWithOwnTurns.includes(data.day)) 
     return (<button
             className="flex flex-col justify-center items-center rounded-md w-full h-10 sm:h-20    bg-red-800 bg-opacity-30 font-Saira text-2xl sm:text-3xl text-white font-light hover:scale-125 hover:text-4xl sm:hover:text-5xl hover:bg-red-800 hover:bg-opacity-70" 
