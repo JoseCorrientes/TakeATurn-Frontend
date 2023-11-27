@@ -11,7 +11,8 @@ function DayComponent({data, handleOneDay}) {
     if (data.type=='initial') {
         return (
             <div
-                 className={`rounded-md w-full h-20 border border-gray-600 bg-gray-600 bg-opacity-30 bg-shadow-black bg-shadow-2xl`} 
+                 className={`rounded-md w-full h-10 sm:h-20 border border-gray-600 bg-gray-600 bg-opacity-30 bg-shadow-black bg-shadow-2xl`} 
+                //  className={`rounded-md w-full h-20 border border-gray-600 bg-gray-600 bg-opacity-30 bg-shadow-black bg-shadow-2xl`} 
             >
             </div>
         )
@@ -19,7 +20,8 @@ function DayComponent({data, handleOneDay}) {
   if (data.type=='blank' ) {
         return(
             <div
-                 className={`w-full h-10`} 
+                 className={`w-full h-10 sm:h-20 `} 
+                //  className={`w-full h-10 `} 
             >
             </div>
         )
