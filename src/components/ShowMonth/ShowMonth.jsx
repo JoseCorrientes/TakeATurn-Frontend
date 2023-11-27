@@ -166,7 +166,6 @@ function ShowMonth() {
   return (
     // inicio de toda la pantall que tiene imagen de muela de fondo
     <div className="w-full h-full sm:h-auto"
-    // <div className="w-full h-auto"
         style={{backgroundImage: `url(${FondoAzul})`}}
     >
 
@@ -178,7 +177,7 @@ function ShowMonth() {
 
         {/* div inicio del contenedor de todo y que ocupa solo 3/4 del ancho de la pantall de fondo de pantalla? */}
         <div
-            className="w-auto sm:w-3/4   h-auto  pt-4 sm:pt-8 mx-2 sm:mx-auto bg-no-repeat bg-contain bg-right bg-orange-400"
+            className="w-auto sm:w-3/4   h-auto  pt-4 sm:pt-8 mx-2 sm:mx-auto bg-no-repeat bg-contain bg-right"
         >
 
 
