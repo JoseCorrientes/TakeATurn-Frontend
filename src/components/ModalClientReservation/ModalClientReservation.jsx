@@ -133,16 +133,15 @@ function ModalClientReservation({year, month, day, data}) {
 
   return (
         <div
-        className=' flex flex-col fixed inset-0  bg-black bg-opacity-50 w-full justify-center items-center'
+        className='flex flex-col fixed inset-0  bg-black bg-opacity-50 w-full justify-center items-center'
         >
             <div
-                className='flex flex-col items-center w-11/12 h-5/6 border-[2px] sm:w-2/3 sm:h-auto sm:py-10 sm:border-[4px] rounded-lg border-mayra-dark-blue  bg-black opacity-90'
-                // className='flex flex-col items-center w-11/12 h-5/6 border-[2px] sm:w-2/3 sm:h-4/6 sm:border-[4px] rounded-lg border-mayra-dark-blue  bg-black opacity-90'
+                className='flex flex-col items-center w-11/12 h-auto border-[2px] sm:w-2/3 sm:h-auto py-5 sm:py-10 sm:border-[4px] rounded-lg border-mayra-dark-blue  bg-black opacity-90'
             >
                     
                     {errorSavingTurn=='' &&
                     <h1
-                    className='text-white font-Saira text-2xl sm:text-3xl  font-light text-center pb-4 pt-5 sm:pb-5 sm:pt-6' 
+                    className='text-white font-Saira text-2xl sm:text-3xl  font-light text-center pb-4 pt-5 sm:pb-5 sm:pt-6 ' 
                     >
                     Pedido de Turno {day} de {monthText} de {year}
                     </h1>
@@ -150,8 +149,8 @@ function ModalClientReservation({year, month, day, data}) {
 
                     {errorSavingTurn=='' &&
                     <input 
-                    className='flex flex-row w-1/3 h-[3rem] px-2 text-center mb-1'
-                    placeholder='Ingrese Teléfono de Contacto'
+                    className='flex flex-row w-5/6 sm:w-1/3 h-[3rem]  text-center mb-1 '
+                    placeholder='Teléfono de Contacto'
                     name='phone'
                     value={phone}
                     onChange={(e)=>handlePhone(e)}
@@ -159,7 +158,7 @@ function ModalClientReservation({year, month, day, data}) {
                     }
                     {errorSavingTurn=='' &&
                     <input 
-                    className='flex flex-row w-1/3 h-[3rem] px-2 text-center mb-1'
+                    className='flex flex-row w-5/6 sm:w-1/3 h-[3rem] px-2 text-center mb-1'
                     placeholder='Obra Social'
                     name='healthInsurance'
                     value={healthInsurance}
@@ -168,7 +167,7 @@ function ModalClientReservation({year, month, day, data}) {
                     }
                     {errorSavingTurn=='' &&
                     <select
-                    className='w-1/3 h-[3rem] text-center mb-1'
+                    className='w-5/6 sm:w-1/3 h-[3rem] text-center mb-1 text-black'
                     onChange={(e)=>handleSelectTypeAttention(e)}
                     name='typeAttention'
                     value={typeAttention}
@@ -176,20 +175,27 @@ function ModalClientReservation({year, month, day, data}) {
                         <option
                             className='bg-white text-gray-400'
                             value={0}
-                        >Seleccione Tratamiento</option>
+                        >
+                            
+                            Tipo de Atención</option>
                         <option
+                            className="text-black"
                             value={'urgencia'}
                         >Urgencia</option>
                         <option
+                            className="text-black"
                             value={'consulta'}
                         >Consulta</option>
                         <option
+                            className="text-black"
                             value={'extraccion'}
                         >Extracción</option>
                         <option
+                            className="text-black"
                             value={'conducto'}
                         >Tratamiento de Conducto</option>
                         <option
+                            className="text-black"
                             value={'limpieza'}
                         >Limpieza</option>
                     </select> 
@@ -198,7 +204,7 @@ function ModalClientReservation({year, month, day, data}) {
                     <textarea 
                     cols={10}
                     rows={5}
-                    className='flex flex-row w-1/3 h-[6rem] px-2 text-center mb-1'
+                    className='flex flex-row w-5/6 sm:w-1/3 h-[6rem] px-2 text-center mb-1'
                     placeholder='Ingrese Comentario'
                     name='comment'
                     value={comment}
@@ -212,13 +218,13 @@ function ModalClientReservation({year, month, day, data}) {
                         className="w-full h-1/6 flex flex-row justify-center items-center "
                     >
                         <button
-                        className='flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/4 bg-gray-700 bg-opacity-20 font-Saira text-2xl sm:text-3xl text-gray-700 font-thin '
+                        className='flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/2 sm:w-1/4 bg-gray-700 bg-opacity-20 font-Saira text-2xl sm:text-3xl text-gray-700 font-thin ml-1 sm:ml-0 '
                         disabled
                         >
                             Grabar Turno
                         </button>
                         <button
-                        className='flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl ml-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue'
+                        className='flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/2 sm:w-1/4 font-Saira  text-2xl hover:text-3xl  sm:hover:text-4xl ml-1 sm:mr-0 mr-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue'
                         onClick={handleCloseReservationForm}
                         
                         >
@@ -234,13 +240,13 @@ function ModalClientReservation({year, month, day, data}) {
                         className="w-full h-1/6 flex flex-row justify-center items-center "
                     >
                         <button
-                        className='flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/4 bg-red-700 bg-opacity-60 font-Saira text-2xl hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-red-500'
+                        className='flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/2 sm:w-1/4 bg-red-700 bg-opacity-60 font-Saira text-2xl hover:text-3xl sm:hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-red-500 ml-1 sm:ml-0'
                         onClick={()=>setToConfirm(true)}
                         >
                             Grabar Turno
                         </button>
                         <button
-                        className='flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl ml-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue'
+                        className='flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/2 sm:w-1/4 font-Saira text-2xl hover:text-3xl sm:hover:text-4xl ml-1 mr-1 sm:mr-0 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue'
 
                         onClick={handleCloseReservationForm}
                         >
@@ -256,20 +262,15 @@ function ModalClientReservation({year, month, day, data}) {
                     >
                         <button
                         
-                        className='flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/4 bg-mayra-push-green bg-opacity-60 font-Saira text-2xl hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-mayra-push-green-border'
+                        className='flex flex-row justify-center items-center ml-1 sm:ml-0 mr-1 rounded-md h-10 w-1/2 sm:w-1/4 bg-mayra-push-green bg-opacity-60 font-Saira text-2xl hover:text-3xl sm:hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-mayra-push-green-border'
                         onClick={handleSubmit}
                         >
                             Confirmar
                         </button>
 
-                        {/* <button
-                        className='flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/4 bg-mayra-push-green bg-opacity-60 font-Saira text-2xl hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-mayra-push-green-border'
-                        onClick={handleSubmit}
-                        >
-                            Confirmar
-                        </button> */}
+                       
                         <button
-                        className='flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl ml-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue'
+                        className='flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 mr-1 sm:mr-0 w-1/2 sm:w-1/4 font-Saira text-2xl hover:text-3xl sm:hover:text-4xl ml-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue'
                         onClick={()=>setToConfirm(false)}
                         
                         >
@@ -295,29 +296,38 @@ function ModalClientReservation({year, month, day, data}) {
 
                    {errorSavingTurn=='Error' && 
                    <div
-                        className=" flex flex-row justify-center items-center w-full h-10 "
+                        className="flex flex-col sm:flex-row justify-center items-center w-full h-auto sm:h-10 px-2 sm:px-0"
+                        // className=" flex flex-row justify-center items-center w-full h-10 "
                    >
                         <p
-                            className="px-4 mr-4 font-Saira text-3xl text-white font-thin bg-red-600"
-                        >El Turno no se pudo Grabar.</p>
+                            // className="px-4 mr-4 font-Saira text-3xl text-white font-thin bg-red-600"
+                            className="px-4 sm:mr-4 font-Saira text-3xl text-white font-thin bg-red-600 text-center"
+                        >El Turno no se pudo Grabar</p>
                         <button
                             onClick={handleCloseReservationForm}
-                            className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+                            className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10  w-1/2 sm:w-1/4 mt-4 sm:mt-0  font-Saira text-2xl hover:text-3xl sm:hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+
+                            // className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
                         >Cancelar</button>
 
                    </div>
                    }
 
+
+
+
+
+
                    {errorSavingTurn=='Ok' && 
                    <div
-                        className="flex flex-row justify-center items-center w-full h-10 "
+                        className="flex flex-col sm:flex-row justify-center items-center w-full h-auto sm:h-10 px-2 sm:px-0"
                    >
                         <p
-                            className="px-4 mr-4 font-Saira text-3xl text-white font-thin bg-green-600"
-                        >El Turno se Grabo Correctamente.</p>
+                            className="px-4 sm:mr-4 font-Saira text-3xl text-white font-thin bg-green-600 text-center"
+                        >El Turno se Grabo Correctamente</p>
                         <button
                             onClick={handleCloseReservationForm}
-                            className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+                            className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10  w-1/2 sm:w-1/4 mt-4 sm:mt-0  font-Saira text-2xl hover:text-3xl sm:hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
                         >Ok</button>
 
                    </div>

@@ -156,21 +156,23 @@ function ModalHourList({
 
   let frameScreen =
     toConfirmDelete || errorDeletingTurn != ""
-      ? "flex flex-col items-center justify-center w-11/12 h-5/6 border-[2px] sm:w-2/3 sm:h-40 sm:border-[4px] rounded-lg border-mayra-dark-blue  bg-black opacity-90"
-      : "flex flex-col items-center w-11/12 h-5/6 border-[2px] sm:w-2/3 sm:h-5/6 sm:border-[4px] rounded-lg border-mayra-dark-blue  bg-black opacity-90";
+    //   ? "flex flex-col items-center justify-center w-11/12 h-5/6 border-[2px] sm:w-2/3 sm:h-40 sm:border-[4px] rounded-lg border-mayra-dark-blue  bg-black opacity-90 "
+      ? "flex flex-col items-center justify-center w-11/12 h-auto py-5 sm:py-0 border-[2px]  sm:px-0 sm:w-2/3 sm:h-40 sm:border-[4px] rounded-lg border-mayra-dark-blue  bg-black opacity-90 "
+
+      : "flex flex-col items-center w-11/12 h-full border-[2px] sm:w-2/3 sm:h-5/6 sm:border-[4px] rounded-lg border-mayra-dark-blue  bg-black opacity-90";
 
   return (
-    <div className=" flex flex-col fixed inset-0  bg-black bg-opacity-50 w-full justify-center items-center">
+    <div className=" flex flex-col fixed inset-0 h-full bg-black bg-opacity-50 w-full justify-center items-center">
       <div
         className={frameScreen}
-        // className='flex flex-col justify-center items-center w-11/12 h-5/6 border-[2px] sm:w-2/3 sm:h-auto sm:py-10 sm:border-[4px] rounded-lg border-mayra-dark-blue  bg-black opacity-90'
-        //className='flex flex-col items-center w-11/12 h-5/6 border-[2px] sm:w-2/3 sm:h-5/6 sm:border-[4px] rounded-lg border-mayra-dark-blue  bg-black opacity-90'
       >
         {toConfirmDelete && errorDeletingTurn == "" && (
-          <h1 className="text-white font-Saira text-2xl sm:text-3xl  font-light text-center sm:pb-5 mb-4">
-            Se borrará el Turno
+          <h1 className="text-white font-Saira text-2xl sm:text-3xl  font-light text-center sm:pb-5 mb-4 ">
+            Confirme el borrado del Turno
           </h1>
         )}
+
+
 
         {!toConfirmDelete && errorDeletingTurn == "" && (
           <h1 className="text-white font-Saira text-2xl sm:text-3xl  font-light text-center pb-4 pt-5 sm:pb-5 sm:pt-6">
@@ -178,8 +180,17 @@ function ModalHourList({
           </h1>
         )}
 
+
+
+
+
+
+
+
+
+
         {!toConfirmDelete && (
-          <div className="sm:w-3/4 sm:h-full mb-5 sm:mb-10 overflow-y-auto pr-2">
+          <div className=" w-full sm:w-3/4 sm:h-full mb-5 sm:mb-10 overflow-y-auto p-1">
             {dayTurns.turns &&
               dayTurns.turns.map(
                 (item, index) =>
@@ -190,13 +201,13 @@ function ModalHourList({
                     >
                       {item.status == "free" && (
                         <div className=" flex flex-row w-2/6 h-full justify-center items-center ">
-                          <h1 className="text-white font-Saira font-extralight text-6xl">
+                          <h1 className="text-white font-Saira font-extralight text-3xl sm:text-6xl">
                             {item.turnName.substring(0, 2)}
                           </h1>
-                          <h1 className="flex flex-row h-full text-white font-Saira font-extralight text-6xl">
+                          <h1 className="flex flex-row h-full text-white font-Saira font-extralight text-2xl sm:text-6xl">
                             :
                           </h1>
-                          <h1 className="text-white font-Saira font-extralight text-6xl">
+                          <h1 className="text-white font-Saira font-extralight text-3xl sm:text-6xl">
                             {item.turnName.substring(2)}
                           </h1>
                         </div>
@@ -204,13 +215,13 @@ function ModalHourList({
 
                       {item.status == "busyOwner" && (
                         <div className="bg-black flex flex-row w-2/6 h-full justify-center items-center">
-                          <h1 className="text-white font-Saira font-extralight text-6xl">
+                          <h1 className="text-white font-Saira font-extralight text-3xl sm:text-6xl">
                             {item.turnName.substring(0, 2)}
                           </h1>
-                          <h1 className="flex flex-row h-full text-white font-Saira font-extralight text-6xl">
+                          <h1 className="flex flex-row h-full text-white font-Saira font-extralight text-2xl sm:text-6xl">
                             :
                           </h1>
-                          <h1 className="text-white font-Saira font-extralight text-6xl">
+                          <h1 className="text-white font-Saira font-extralight text-3xl sm:text-6xl">
                             {item.turnName.substring(2)}
                           </h1>
                         </div>
@@ -224,8 +235,8 @@ function ModalHourList({
                         )}
 
                         {item.status == "busyOwner" && (
-                          <p className="flex flex-row w-full h-full bg-gray-800 justify-center items-center font-Saira text-3xl font-semibold text-gray-200">
-                            RESERVADO
+                          <p className="flex flex-row w-full h-full bg-gray-800 justify-center items-center font-Saira text-3xl font-light sm:font-semibold text-gray-200">
+                            TOMADO
                           </p>
                         )}
                       </div>
@@ -257,31 +268,50 @@ function ModalHourList({
         )}
 
         {toConfirmDelete && errorDeletingTurn == "" && (
-          <div className="w-full h-1/6 flex flex-row justify-center items-center ">
+          <div className="w-full h-1/6 flex flex-row justify-center items-center">
             <button
               onClick={handleDeleteTurnDb}
-              className="flex flex-row justify-center items-center mr-1 rounded-md h-10 w-2/4 bg-mayra-push-green bg-opacity-60 font-Saira text-2xl hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-mayra-push-green-border"
+              className="flex flex-row justify-center items-center mr-1 rounded-md h-10  w-auto px-6 hover:px-1 sm:px-0 sm:w-2/4 bg-mayra-push-green bg-opacity-60 font-Saira text-2xl hover:text-3xl sm:hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-mayra-push-green-border"
             >
-              Confirmar el Borrado del Turno
+              Confirmar Borrado
             </button>
 
             <button
               onClick={() => setToConfirmDelete(false)}
-              className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl ml-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+              className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-auto sm:w-1/4 px-3 hover:px-1 sm:px-0 font-Saira text-2xl hover:text-3xl sm:hover:text-4xl ml-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
             >
               Cancelar
             </button>
           </div>
         )}
 
+
+
+
+
+
+
+
+
+
         {!toConfirmDelete && errorDeletingTurn == "" && (
           <button
-            className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg  w-2/3 h-10  hover:text-4xl ml-1 sm:text-3xl text-white font-thin font-Saira mb-7 hover:border-4 hover:w-2/3 "
+            className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg  w-full sm:w-2/3 h-10  hover:text-3xl sm:hover:text-4xl text-2xl sm:text-3xl text-white font-thin font-Saira mb-7 hover:border-4 "
             onClick={handleCloseTurns}
           >
             VOLVER AL CALENDARIO
           </button>
         )}
+
+
+
+
+
+
+
+
+
+
 
         {errorDeletingTurn == "Error" && (
           <div className=" flex flex-row justify-center items-center w-full h-10 ">
@@ -297,19 +327,47 @@ function ModalHourList({
           </div>
         )}
 
+
+
+
+
+
+
+
+
+
         {errorDeletingTurn == "Ok" && (
-          <div className="w-full h-10 flex flex-row justify-center items-center ">
-            <p className="px-4 t-0 mr-4 font-Saira text-3xl text-white font-thin bg-green-600">
+          <div
+          className="flex flex-col sm:flex-row justify-center items-center w-full h-auto sm:h-10 px-2 sm:px-0"
+          >
+          {/* className="w-full h-10 flex flex-row justify-center items-center "> */}
+            <p 
+            className="px-4 sm:mr-4 font-Saira text-3xl text-white font-thin bg-green-600 text-center"
+            // className="px-4 t-0 mr-4 font-Saira text-3xl text-white font-thin bg-green-600"
+            >
               El Turno se Borro Correctamente.
             </p>
+
             <button
               onClick={handleOkDeleted}
-              className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+              className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10  w-1/2 sm:w-1/4 mt-4 sm:mt-0  font-Saira text-2xl hover:text-3xl sm:hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+            //   className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
             >
               Ok
             </button>
+
           </div>
         )}
+
+
+
+
+
+
+
+
+
+
       </div>
     </div>
   );

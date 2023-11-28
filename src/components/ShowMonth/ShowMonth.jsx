@@ -8,6 +8,8 @@ import ModalHourList from '../ModalHourList/ModalHourList';
 import ModalClientReservation from '../ModalClientReservation/ModalClientReservation.jsx';
 import { Link } from 'react-router-dom';
 
+import { FaSearch } from "react-icons/fa";
+
 
 
 function ShowMonth() {
@@ -249,33 +251,28 @@ function ShowMonth() {
 
 
 
-                            {/* <div
-                                className="flex flex-row justify-center"
-                            >
-                                
-                            </div> */}
-
 
                             {/* inicio div contenedor de boton buscar y cambiar usuario     */}
                             <div
                                 className='w-full flex flex-row justify-center'
                                 >
                                     { localMonth!='0' && localYear!='0' && user!='' &&
-                                        <button
-                                        className='flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/4 bg-red-700 bg-opacity-60 font-Saira text-2xl hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-red-500'
+                                    <FaSearch
+                                        className='flex flex-row justify-center items-center py-1 h-10 w-1/3 sm:w-1/4 ml-1 sm:ml-0 mr-1 rounded-md  bg-red-700 bg-opacity-60 text-white  hover:bg-opacity-20 hover:border-4 hover:border-red-500'
                                         onClick={handleGetTurns}
-                                    >Buscar</button>}
+                                    />
+                                    }
 
                                     { (localMonth==='0' || localYear==='0' || user=='') &&
                                         <button
-                                        className='mr-1 rounded-md h-10 w-1/4 bg-gray-700 bg-opacity-30 font-Saira text-2xl sm:text-3xl text-gray-700 font-thin  '
+                                        className='mr-1 ml-1 sm:ml-0 rounded-md h-10 w-1/3 sm:w-1/4 bg-gray-700 bg-opacity-30 font-Saira text-2xl sm:text-3xl text-gray-700 font-thin  '
                                         disabled
-                                    >Buscar</button>}
+                                    ></button>}
 
                                     <Link
                                         onClick={handleClearClient}
                                         to={`/`}
-                                        className='flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/4 font-Saira text-2xl hover:text-4xl ml-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue'
+                                        className='flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-2/3 sm:w-1/4 font-Saira text-2xl   hover:text-3xl sm:text-3xl sm:hover:text-4xl ml-1 mr-1 sm:mr-0  text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue'
                                     >Cambiar Usuario</Link>
 
                             </div> 
