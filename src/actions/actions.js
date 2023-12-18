@@ -1,3 +1,4 @@
+import { decryptData } from '../tools/crypto.js';
 import {
     GET_MONTH_TURNS,
     TOGGLE_SEE_HOUR_LIST,
@@ -15,6 +16,13 @@ import {
     TOGGLE_ERROR_SAVING_TURN,
     TOGGLE_ERROR_DELETING_TURN,
     STORE_DATA_MONTH_TO_SEEK,
+    SEND_DATA_LOGIN,
+    SEND_DATA_LOGIN_ADMIN,
+    CLEAR_LOGIN_ADMIN_ERROR,
+    CLEAR_LOGIN_ADMIN_ALL,
+    SEND_DATA_LOGIN_DOCTOR,
+    CLEAR_LOGIN_DOCTOR_ERROR,
+    CLEAR_LOGIN_DOCTOR_ALL,
 
 }from './actionNames.js';
 import axios from 'axios';
@@ -22,6 +30,187 @@ import axios from 'axios';
 const VITE_APP_API = import.meta.env.VITE_APP_API;
 const host= VITE_APP_API ;
 
+//Limpieza de todos los campos de login Administrador (data, valid y error)
+export function clearLoginAdminAll (){
+    return function (dispatch){
+        return dispatch({
+            type: CLEAR_LOGIN_ADMIN_ALL,
+        })
+    }
+}
+
+//Limpieza de todos los campos de login Doctor (data, valid y error)
+export function clearLoginDoctorAll(){
+    return function(dispatch) {
+        return dispatch({
+            type: CLEAR_LOGIN_DOCTOR_ALL,
+        })
+    }
+}
+
+//Limpieza del error de login de doctor en el estado global loginDoctorError
+export function clearLoginDoctorError(){
+    return function (dispatch){
+        return dispatch({
+            type: CLEAR_LOGIN_DOCTOR_ERROR,
+        })
+    }
+}
+
+//Login de Doctores solamente
+export function sendDataLoginDoctor (data) {
+    return async function(dispatch) {
+        const options = {
+            method: 'POST',
+            url: `${host}/doctors/login`,
+            data: {user: data}
+        }
+        axios
+        .request(options)
+        .then((resolve)=>{
+            let data;
+            //Error de usuario invalido
+            if (resolve.data.status=='Error' && resolve.data.message=='Invalid User') {
+                data={
+                    valid: false,
+                    data: '',
+                    error:2 
+                } 
+            }
+            if (resolve.data.status=='Error' && resolve.data.message=='Server Error Try Again') {
+                data={
+                    valid: false,
+                    data: '',
+                    error:3 
+                } 
+            }
+            //Usuario valido
+            if(resolve.data.status=='Ok') {
+                data={
+                    valid:true,
+                    data: decryptData(resolve.data.data),
+                    error:1 
+                }
+            }
+            // console.log(data);
+            return dispatch({
+                type: SEND_DATA_LOGIN_DOCTOR,
+                payload: data
+            })
+                            
+
+        })
+        .catch((error)=>{
+            let data={
+                valid: false,
+                data: '',
+                error:3 
+            }
+            return dispatch({
+                type: SEND_DATA_LOGIN_DOCTOR,
+                payload: data
+            })
+        })  
+    }
+}
+
+
+//Limpieza del error de login de administrador en el estado global loginAdminError
+export function clearLoginAdminError (){
+    return function(dispatch){
+        return dispatch({
+            type: CLEAR_LOGIN_ADMIN_ERROR,
+        })
+    }
+}
+
+//Login de Administradors solamente
+export function sendDataLoginAdmin (data) {
+    return async function(dispatch) {
+        const options = {
+            method: 'POST',
+            url: `${host}/admin/login`,
+            data: {user: data}
+        }
+        axios
+        .request(options)
+        .then((resolve)=>{
+            console.log(' resolve: ');
+            console.log(resolve.data)
+            let data;
+            //Error de usuario invalido
+            if (resolve.data.status=='Error' && resolve.data.message=='Invalid User') {
+                data={
+                    valid: false,
+                    data: '',
+                    error:2 
+                } 
+            }
+            if (resolve.data.status=='Error' && resolve.data.message=='Server Error Try Again') {
+                data={
+                    valid: false,
+                    data: '',
+                    error:3 
+                } 
+            }
+            //Usuario valido
+            if(resolve.data.status=='Ok') {
+                data={
+                    valid:true,
+                    data: decryptData(resolve.data.data),
+                    error:1 
+                }
+            }
+            // console.log(data);
+            return dispatch({
+                type: SEND_DATA_LOGIN_ADMIN,
+                payload: data
+            })
+                            
+
+        })
+        .catch((error)=>{
+            console.log('hubo un problema al acceder al backend')
+            console.log(error);
+            let data={
+                valid: false,
+                data: '',
+                error:3 
+            }
+            return dispatch({
+                type: SEND_DATA_LOGIN_ADMIN,
+                payload: data
+            })
+
+        })  
+
+
+    }
+}
+
+//esto es para login de doctores
+export function sendDataLogin(data) {
+    return async function(dispatch) {
+        const options = {
+            method: 'POST',
+            url: `${host}/doctors`,
+            data: {user: data},   //body
+            //params: {prueba: 'pepepepe'}  //params  se recupera con req.query
+        }
+
+        axios 
+        .request(options)
+        .then((resolve)=>{
+            console.log( 'se resolvio la busqueda')
+            console.log(resolve)
+        })
+        .catch((reject)=>{
+            console.log('hubo un error')
+            console.log(reject)
+        })
+
+    }
+}
 
 export function sendMail (data, destination) {
     return function (dispatch) {
@@ -46,7 +235,6 @@ export function sendMail (data, destination) {
         })
     }
 }
-
 
 export function storeDataMonthToSeek (data){
     return function (dispatch) {
@@ -74,7 +262,6 @@ export function toggleErrorSavingTurn (data) {
         })
     }
 }
-
 
 export function toggleReload () {
     return function (dispatch) {
@@ -166,7 +353,6 @@ export function sendEmailToPro (data) {
     }
 }
 
-
 export function deleteTurnDB(data) {
     return async function (dispatch) {
     const options = {
@@ -195,7 +381,6 @@ export function deleteTurnDB(data) {
         })
 }}
 
-
 export function toggleCanceledTurn (data) {
     return function(dispatch) {
         return dispatch({
@@ -204,7 +389,6 @@ export function toggleCanceledTurn (data) {
         })
     }
 }
-
 
 export function dayToSave (data) {
     return function (dispatch) {

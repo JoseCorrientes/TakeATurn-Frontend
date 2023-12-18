@@ -13,6 +13,12 @@ import {
     TOGGLE_ERROR_SAVING_TURN,
     TOGGLE_ERROR_DELETING_TURN,
     STORE_DATA_MONTH_TO_SEEK,
+    CLEAR_LOGIN_ADMIN_ERROR,
+    SEND_DATA_LOGIN_ADMIN,
+    CLEAR_LOGIN_ADMIN_ALL,
+    CLEAR_LOGIN_DOCTOR_ERROR,
+    SEND_DATA_LOGIN_DOCTOR,
+    CLEAR_LOGIN_DOCTOR_ALL,
 } from '../actions/actionNames.js';
 
 
@@ -63,6 +69,14 @@ let initialArray = [
 
 
 const initialState = {
+    loginDoctorData:'',   //objeto que tiene el email,password y token de usuario doctor cuando se conecta
+    loginDoctorValid: false,   //Boolean que dice si el usuario es un doctor valido,
+    loginDoctorError: 0,       //Estado del intento de login doctor 0:no error, 1 ok, 2 no authorizado, 3 error servidor  
+
+
+    loginAdminData:'',   //objeto que tiene el email,password y token de usuario administrador cuando se conecta
+    loginAdminValid: false,   //Boolean que dice si el usuario es un admin valido,
+    loginAdminError: 0,       //Estado del intento de login superroot 0:no error, 1 ok, 2 no authorizado, 3 error servidor  
     
     monthTurns: initialArray,     //turnos traidos de la collection turnos para un mes determinado.
     dayWithOwnTurns: [],         //Arreglo que tiene todos los dias que tiene turnos de un cliente en particular
@@ -80,13 +94,66 @@ const initialState = {
 
     reload: 0,
 
-    dataMonthToSeek: ""   //objeto que tiene todos los datos que se pasan cuando se busca un mes determinado y esta "" es porque no se busco nada
+    dataMonthToSeek: "",   //objeto que tiene todos los datos que se pasan cuando se busca un mes determinado y esta "" es porque no se busco nada
+
+   
 
 }
 
 
 const rootReducer = (state=initialState, action) =>{
     switch(action.type) {
+
+        case CLEAR_LOGIN_ADMIN_ALL: {
+            return {
+                ...state,
+                loginAdminData:'',
+                loginAdminValid: false,
+                loginAdminError: 0
+            }
+        }
+
+        case CLEAR_LOGIN_DOCTOR_ALL: {
+            return {
+                ...state,
+                loginDoctorData:'',
+                loginDoctorValid: false,
+                loginDoctorError:0
+            }
+        }
+
+        case CLEAR_LOGIN_DOCTOR_ERROR: {
+            return {
+                ...state,
+                loginDoctorError: 0
+            }
+        }
+
+        case SEND_DATA_LOGIN_DOCTOR: {
+            return {
+                ...state,
+                loginDoctorValid: action.payload.valid,
+                loginDoctorData: action.payload.data,
+                loginDoctorError: action.payload.error,
+            }
+        }
+
+
+        case CLEAR_LOGIN_ADMIN_ERROR: {
+            return {
+                ...state,
+                loginAdminError: 0
+            }
+        }
+
+        case SEND_DATA_LOGIN_ADMIN: {
+            return {
+                ...state,
+                loginAdminValid: action.payload.valid,
+                loginAdminData: action.payload.data,
+                loginAdminError: action.payload.error,
+            }
+        }
        
         case STORE_DATA_MONTH_TO_SEEK: {
             return {
@@ -96,9 +163,6 @@ const rootReducer = (state=initialState, action) =>{
         }
 
         case TOGGLE_ERROR_DELETING_TURN: {
-            console.log( 'llego al reducer')
-            console.log('action.payload')
-            console.log(action.payload)
             return {
                 ...state,
                 errorDeletingTurn: action.payload
@@ -202,8 +266,6 @@ const rootReducer = (state=initialState, action) =>{
                 dayWithOwnTurns: action.payload.data2
             }
         }
-
-
 
         default:
             return {...state}  
