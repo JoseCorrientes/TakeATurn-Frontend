@@ -3,27 +3,32 @@ import {
   toggleSeeClientReservation,
   dayToSave,
   fillDataHourReservation,
-  saveTurn,
   toggleReload,
   getMonthTurns,
   toggleErrorSavingTurn,
-  sendMail,
+//   sendMail,
+  createTurnPatient,
+  createTurnDoctor,
 } from "../../actions/actions";
 import { useState } from "react";
 
-// function ModalClientReservation({year, month, day}) {
 function ModalClientReservation({ year, month, day, data }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const dataHourReservation = useSelector((state) => state.dataHourReservation);
 
   const errorSavingTurn = useSelector((state) => state.errorSavingTurn);
-  const errorDeletingTurn = useSelector((state) => state.errorDeletingTurn);
+  //const errorDeletingTurn = useSelector((state) => state.errorDeletingTurn);
+  const loginDoctorData = useSelector((state) => state.loginDoctorData);
+  const loginDoctorValid = useSelector((state) => state.loginDoctorValid);
 
   const [typeAttention, setTypeAttention] = useState(0);
   const [healthInsurance, setHealthInsurance] = useState("");
   const [phone, setPhone] = useState("");
   const [comment, setComment] = useState("");
+  const [idPatient, setIdPatient] = useState("");
+  const [email, setEmail] = useState("");
+
   const [toConfirm, setToConfirm] = useState(false);
 
   const handleCloseReservationForm = () => {
@@ -46,46 +51,82 @@ function ModalClientReservation({ year, month, day, data }) {
   const handleComment = (e) => {
     setComment(e.target.value);
   };
+  const handleIdPatient = (e) => {
+    setIdPatient(e.target.value);
+  };
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
 
   const handleSubmit = () => {
     let hour = dataHourReservation.turnName.slice(0, 2);
     let minute = dataHourReservation.turnName.slice(2);
     let status = "busy";
-    let dataToSave = {
-      day,
-      month: parseInt(month),
-      year: parseInt(year),
-      hour,
-      minute,
-      status,
-      idpatient: user.user,
-      email: user.email,
-      doctor: user.doctor,
-      typetreatment: typeAttention,
-      healthinsurance: healthInsurance,
-      phone,
-      comment,
-      hourindex: dataHourReservation.hourIndex,
-    };
-    setPhone("");
-    setTypeAttention(0);
-    setHealthInsurance("");
-    setPhone("");
-    setComment("");
 
-    //de aca salen los datos que se envian para la registracion ----> dateToSave
-    console.log(dataToSave);
+    let dataToSave;
 
-    dispatch(dayToSave({}));
-    dispatch(saveTurn(dataToSave));
-    dispatch(() => setToConfirm(false));
-    dispatch(getMonthTurns(data));
+    //lo siguiente es el dataToSave si es un doctor el que crea el turno
+    if (loginDoctorValid) {
+      dataToSave = {
+        turnName: dataHourReservation.turnName,
+        day,
+        month: parseInt(month),
+        year: parseInt(year),
+        hour,
+        minute,
+        status,
+        idpatient: idPatient,
+        email: email,
+        doctor: loginDoctorData.id,
+        typetreatment: typeAttention,
+        healthinsurance: healthInsurance,
+        phone,
+        comment,
+        hourIndex: dataHourReservation.hourIndex,
+      };
 
-    //aca deberia enviar al backend los datos para el correo en una ruta email
-    //enviar todo dataToSave  -- El correo se envia al paciente y al dr
-    dispatch(sendMail(dataToSave));
+      setPhone("");
+      setTypeAttention(0);
+      setHealthInsurance("");
+      setPhone("");
+      setComment("");
 
-    dispatch(toggleReload());
+      //de aca salen los datos que se envian para la registracion ----> dateToSave
+      dispatch(dayToSave({}));
+      let doctor = loginDoctorData;
+      dispatch(createTurnDoctor({ data: dataToSave, doctor }));
+    } else {
+      //lo siguiente es el dataToSave si es un paciente el que crea el turno
+      dataToSave = {
+        day,
+        month: parseInt(month),
+        year: parseInt(year),
+        hour,
+        minute,
+        status,
+        idpatient: user.user,
+        email: user.email,
+        doctor: user.doctor,
+        typetreatment: typeAttention,
+        healthinsurance: healthInsurance,
+        phone,
+        comment,
+        hourindex: dataHourReservation.hourIndex,
+      };
+
+      setPhone("");
+      setTypeAttention(0);
+      setHealthInsurance("");
+      setPhone("");
+      setComment("");
+
+      //de aca salen los datos que se envian para la registracion ----> dateToSave
+      dispatch(dayToSave({}));
+      dispatch(createTurnPatient({ data: dataToSave, user }));
+      dispatch(() => setToConfirm(false));
+      dispatch(getMonthTurns(data));
+      dispatch(toggleReload());
+    }
   };
 
   let monthText;
@@ -136,6 +177,26 @@ function ModalClientReservation({ year, month, day, data }) {
           </h1>
         )}
 
+        {errorSavingTurn == "" && loginDoctorValid && (
+          <input
+            className="flex flex-row w-5/6 sm:w-1/3 h-[3rem] px-2 text-center mb-1"
+            placeholder="Id Paciente"
+            name="idPatient"
+            value={idPatient}
+            onChange={(e) => handleIdPatient(e)}
+          />
+        )}
+
+        {errorSavingTurn == "" && loginDoctorValid && (
+          <input
+            className="flex flex-row w-5/6 sm:w-1/3 h-[3rem] px-2 text-center mb-1"
+            placeholder="Email Paciente"
+            name="email"
+            value={email}
+            onChange={(e) => handleEmail(e)}
+          />
+        )}
+
         {errorSavingTurn == "" && (
           <input
             className="flex flex-row w-5/6 sm:w-1/3 h-[3rem]  text-center mb-1 "
@@ -154,6 +215,7 @@ function ModalClientReservation({ year, month, day, data }) {
             onChange={handleHealthInsurance}
           />
         )}
+
         {errorSavingTurn == "" && (
           <select
             className="w-5/6 sm:w-1/3 h-[3rem] text-center mb-1 text-black"
@@ -198,13 +260,13 @@ function ModalClientReservation({ year, month, day, data }) {
           (phone == "" || healthInsurance == "" || typeAttention == "") && (
             <div className="w-full h-1/6 flex flex-row justify-center items-center ">
               <button
-                className="flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/2 sm:w-1/4 bg-gray-700 bg-opacity-20 font-Saira text-2xl sm:text-3xl text-gray-700 font-thin ml-1 sm:ml-0 "
+                className="flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/2 sm:w-1/4 bg-gray-700 bg-opacity-20 font-Saira text-2xl sm:text-3xl text-gray-700 font-thin ml-1 sm:ml-0"
                 disabled
               >
                 Grabar Turno
               </button>
               <button
-                className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/2 sm:w-1/4 font-Saira  text-2xl hover:text-3xl  sm:hover:text-4xl ml-1 sm:mr-0 mr-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+                className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/2 sm:w-1/4 font-Saira  text-2xl   sm:hover:text-4xl ml-1 sm:mr-0 mr-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
                 onClick={handleCloseReservationForm}
               >
                 Cancelar
@@ -218,13 +280,13 @@ function ModalClientReservation({ year, month, day, data }) {
           !toConfirm && (
             <div className="w-full h-1/6 flex flex-row justify-center items-center ">
               <button
-                className="flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/2 sm:w-1/4 bg-red-700 bg-opacity-60 font-Saira text-2xl hover:text-3xl sm:hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-red-500 ml-1 sm:ml-0"
+                className="flex flex-row justify-center items-center mr-1 rounded-md h-10 w-1/2 sm:w-1/4 bg-red-700 bg-opacity-60 font-Saira text-2xl sm:hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-red-500 ml-1 sm:ml-0"
                 onClick={() => setToConfirm(true)}
               >
                 Grabar Turno
               </button>
               <button
-                className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/2 sm:w-1/4 font-Saira text-2xl hover:text-3xl sm:hover:text-4xl ml-1 mr-1 sm:mr-0 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+                className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 w-1/2 sm:w-1/4 font-Saira text-2xl  sm:hover:text-4xl ml-1 mr-1 sm:mr-0 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
                 onClick={handleCloseReservationForm}
               >
                 Cancelar
@@ -235,14 +297,14 @@ function ModalClientReservation({ year, month, day, data }) {
         {toConfirm && (
           <div className="w-full h-1/6 flex flex-row justify-center items-center ">
             <button
-              className="flex flex-row justify-center items-center ml-1 sm:ml-0 mr-1 rounded-md h-10 w-1/2 sm:w-1/4 bg-mayra-push-green bg-opacity-60 font-Saira text-2xl hover:text-3xl sm:hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-mayra-push-green-border"
+              className="flex flex-row justify-center items-center ml-1 sm:ml-0 mr-1 rounded-md h-10 w-1/2 sm:w-1/4 bg-mayra-push-green bg-opacity-60 font-Saira text-2xl  sm:hover:text-4xl  sm:text-3xl text-white font-thin hover:bg-opacity-20 hover:border-4 hover:border-mayra-push-green-border"
               onClick={handleSubmit}
             >
               Confirmar
             </button>
 
             <button
-              className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 mr-1 sm:mr-0 w-1/2 sm:w-1/4 font-Saira text-2xl hover:text-3xl sm:hover:text-4xl ml-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+              className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10 mr-1 sm:mr-0 w-1/2 sm:w-1/4 font-Saira text-2xl sm:hover:text-4xl ml-1 sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
               onClick={() => setToConfirm(false)}
             >
               Cancelar
@@ -250,36 +312,75 @@ function ModalClientReservation({ year, month, day, data }) {
           </div>
         )}
 
-        {errorSavingTurn == "Error" && (
-          <div className="flex flex-col sm:flex-row justify-center items-center w-full h-auto sm:h-10 px-2 sm:px-0">
-            <p className="px-4 sm:mr-4 font-Saira text-3xl text-white font-thin bg-red-600 text-center">
-              El Turno no se pudo Grabar
-            </p>
-            <button
-              onClick={handleCloseReservationForm}
-              className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10  w-1/2 sm:w-1/4 mt-4 sm:mt-0  font-Saira text-2xl hover:text-3xl sm:hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
-            >
-              Cancelar
-            </button>
-          </div>
-        )}
+        {errorSavingTurn.status == "Error" &&
+          !errorSavingTurn.data.created &&
+          !errorSavingTurn.data.emailed && (
+            <div className="flex flex-col sm:flex-row justify-center items-center w-full h-auto sm:h-10 px-2 sm:px-0">
+              <p className="px-4 sm:mr-4 font-Saira text-3xl text-white font-thin bg-red-600 text-center">
+                El Turno no se pudo Reservar
+              </p>
+              <button
+                onClick={handleCloseReservationForm}
+                className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10  w-1/2 sm:w-1/4 mt-4 sm:mt-0  font-Saira text-2xl sm:hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+              >
+                Cancelar
+              </button>
+            </div>
+          )}
 
-        {errorSavingTurn == "Ok" && (
-          <div className="flex flex-col sm:flex-row justify-center items-center w-full h-auto sm:h-10 px-2 sm:px-0">
-            <p className="px-4 sm:mr-4 font-Saira text-3xl text-white font-thin bg-green-600 text-center">
-              El Turno se Grabo Correctamente
-            </p>
-            <button
-              onClick={handleCloseReservationForm}
-              className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10  w-1/2 sm:w-1/4 mt-4 sm:mt-0  font-Saira text-2xl hover:text-3xl sm:hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
-            >
-              Ok
-            </button>
-          </div>
-        )}
+        {loginDoctorData == "" &&
+          errorSavingTurn.status == "Ok" &&
+          errorSavingTurn.data.created &&
+          !errorSavingTurn.data.emailed && (
+            <div className="flex flex-col sm:flex-row justify-center items-center w-full h-auto sm:h-10 px-2 sm:px-0">
+              <p className="px-4 sm:mr-4 font-Saira text-3xl text-white font-thin bg-red-600 text-center">
+                Turno Creado. Tome Nota del dia y hora.
+              </p>
+              <button
+                onClick={handleCloseReservationForm}
+                className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10  w-1/2 sm:w-1/4 mt-4 sm:mt-0  font-Saira text-2xl sm:hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+              >
+                Ok
+              </button>
+            </div>
+          )}
+
+        {loginDoctorData != "" &&
+          errorSavingTurn.status == "Ok" &&
+          errorSavingTurn.data.created &&
+          !errorSavingTurn.data.emailed && (
+            <div className="flex flex-col sm:flex-row justify-center items-center w-full h-auto sm:h-10 px-2 sm:px-0">
+              <p className="px-4 sm:mr-4 font-Saira text-3xl text-white font-thin bg-red-600 text-center">
+                Turno Creado. No se pudo enviar email.
+              </p>
+              <button
+                onClick={handleCloseReservationForm}
+                className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10  w-1/2 sm:w-1/4 mt-4 sm:mt-0  font-Saira text-2xl sm:hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+              >
+                Ok
+              </button>
+            </div>
+          )}
+
+        {errorSavingTurn.status == "Ok" &&
+          errorSavingTurn.data.created &&
+          errorSavingTurn.data.emailed && (
+            <div className="flex flex-col sm:flex-row justify-center items-center w-full h-auto sm:h-10 px-2 sm:px-0">
+              <p className="px-4 sm:mr-4 font-Saira text-3xl text-white font-thin bg-green-600 text-center">
+                El Turno se Grabo Correctamente
+              </p>
+              <button
+                onClick={handleCloseReservationForm}
+                className="flex flex-row justify-center items-center border-2 border-mayra-light-blue rounded-lg h-10  w-1/2 sm:w-1/4 mt-4 sm:mt-0  font-Saira text-2xl sm:hover:text-4xl sm:text-3xl text-white font-thin hover:bg-black  hover:border-4 hover:border-mayra-light-blue"
+              >
+                Ok
+              </button>
+            </div>
+          )}
       </div>
     </div>
   );
 }
 
 export default ModalClientReservation;
+

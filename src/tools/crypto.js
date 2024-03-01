@@ -3,7 +3,6 @@ let key = import.meta.env.VITE_APP_ENCODE_KEY;
 
 function encryptData(data) {
   data = JSON.stringify(data);
-  console.log(data);
   const cipherText = cryptojs.AES.encrypt(data, key).toString();
   return cipherText;
 }
