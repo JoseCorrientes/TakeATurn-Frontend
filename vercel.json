@@ -2,6 +2,6 @@
     "rewrites": [
       {"source": "/admin/", "destination": "https://odontoturn.vercel.app/admin/"},
       {"source": "/doctors/", "destination": "https://odontoturn.vercel.app/doctors/"},
-      {"source": "/", "destination": "https://odontoturn.vercel.app/"},
+      {"source": "/", "destination": "https://odontoturn.vercel.app/"}
     ]
   }
