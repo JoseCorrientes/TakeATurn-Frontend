@@ -1,17 +1,16 @@
 { 
     "routes":[
-
-        {
-            "src":"/doctors",
-            "dest": "/doctors"
-        },
-        {
-            "src": "/admin",
-            "dest": "/admin"
-        },
         {
             "src":"/",
             "dest": "/"
+        },
+        {
+            "src":"/doctors",
+            "dest": "/doctors/"
+        },
+        {
+            "src": "/admin",
+            "dest": "/admin/"
         }
     ]
 }
