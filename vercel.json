@@ -1,16 +1,16 @@
 { 
-    "routes":[
+    "rewrites":[
         {
             "src":"/doctors",
-            "dest": "/components/DoctorsAdmin/DoctorsAdmin.jsx"
+            "dest": "/index.html"
         },
         {
             "src": "/admin",
-            "dest": "/components/SuperRootAdmin/SuperRootAdmin.jsx"
+            "dest": "/index.html"
         },
         {
-            "src":"/",
-            "dest": "/"
+            "src":"/(.*)",
+            "dest": "/index.html"
         }
     ]
 }
