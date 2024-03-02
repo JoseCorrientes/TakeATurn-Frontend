@@ -2,11 +2,11 @@
     "routes":[
         {
             "src":"/doctors",
-            "dest": "/doctors"
+            "dest": "/components/DoctorsAdmin/DoctorsAdmin.jsx"
         },
         {
             "src": "/admin",
-            "dest": "/admin"
+            "dest": "/components/SuperRootAdmin/SuperRootAdmin.jsx"
         },
         {
             "src":"/",
