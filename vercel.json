@@ -6,11 +6,11 @@
         },
         {
             "src":"/doctors",
-            "dest": "/doctors/"
+            "dest": "/doctors"
         },
         {
             "src": "/admin",
-            "dest": "/admin/"
+            "dest": "/admin"
         }
     ]
 }
