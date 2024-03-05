@@ -1,16 +1,9 @@
 { 
     "rewrites":[
         {
-            "source":"/doctors",
-            "destination": "/"
-        },
-        {
-            "source": "/admin",
-            "destination": "/"
-        },
-        {
             "source":"/(.*)",
             "destination": "/"
         }
+        
     ]
 }
