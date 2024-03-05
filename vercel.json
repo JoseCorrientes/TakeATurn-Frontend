@@ -1,16 +1,43 @@
-{ 
-    "rewrites":[
-        {
-            "source":"/doctors",
-            "destination": "/index.html"
-        },
-        {
-            "source": "/admin",
-            "destination": "/index.html"
-        },
-        {
-            "source":"/(.*)",
-            "destination": "/index.html"
-        }
+{
+    "routes": [
+      {
+        "src": "/",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600, stale-while-revalidate"
+          },
+          {
+            "key": "Content-Type",
+            "value": "text/html; charset=utf-8"
+          }
+        ]
+      },
+      {
+        "src": "/admin",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600, stale-while-revalidate"
+          },
+          {
+            "key": "Content-Type",
+            "value": "text/html; charset=utf-8"
+          }
+        ]
+      },
+      {
+        "src": "/doctors",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600, stale-while-revalidate"
+          },
+          {
+            "key": "Content-Type",
+            "value": "text/html; charset=utf-8"
+          }
+        ]
+      }
     ]
-}
+  }
