@@ -17,7 +17,7 @@ function App() {
       <div className="w-auto h-screen sm:h-screen ">
         <Header />
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path="/" exact element={<Landing />} />
           <Route path="/month" element={<ShowMonth />} />
           <Route path="/admin" element={<SuperRootAdmin />} />
           <Route path="/admin/menu" element={<SuperRootMenu />} />
