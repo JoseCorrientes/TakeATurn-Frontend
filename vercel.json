@@ -1,19 +1,16 @@
 { 
-    "redirects":[
+    "rewrites":[
         {
             "source":"/doctors",
-            "destination": "/index.html",
-            "permanent": true
+            "destination": "/index.html"
         },
         {
             "source": "/admin",
-            "destination": "/index.html",
-            "permanent": true
+            "destination": "/index.html"
         },
         {
             "source":"/(.*)",
-            "destination": "/index.html",
-            "permanent": true
+            "destination": "/index.html"
         }
     ]
 }
