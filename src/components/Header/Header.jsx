@@ -30,7 +30,7 @@ function Header() {
 
       {showInstructionsState && (
         <buton
-          className="h-1/3 flex flex-row justify-center items-center border-2 border-white cursor-pointer font-Saira hover:text-yellow-500 hover:border-yellow-500 rounded-lg px-5"
+          className="h-1/3 flex flex-row justify-center items-center border-2 border-white cursor-pointer font-Saira hover:text-yellow-500 hover:border-yellow-500 rounded-lg px-5 mr-2"
           onClick={() => setVisibleModalInstructions(true)}
         >
           {" "}
