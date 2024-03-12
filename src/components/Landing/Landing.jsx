@@ -3,6 +3,8 @@ import FondoAzul from "../../assets/FondoAzul.jpg";
 import { fillClientData, recoverDoctorsList } from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Modal from "../Modal/Modal";
+import ModalProcessing from "../ModalProcessing/ModalProcessing";
 
 function Landing() {
   const dispatch = useDispatch();
@@ -11,12 +13,24 @@ function Landing() {
   const [doctor, setDoctor] = useState(0);
   const [emailValid, setEmailValid] = useState(false);
   const [userValid, setUserValid] = useState(false);
+  const [inProcess, setInProcess] = useState(false);
 
   let doctorsListError = useSelector((state) => state.doctorsListError);
   let doctorsList = useSelector((state) => state.doctorsList);
 
+  //Pongo para el cartel de recuperando lista de doctores
+  useEffect(()=>{
+        setInProcess(false);
+  },[doctorsListError])  
+
+
+
+
+  
+
   useEffect(() => {
     //Le envio true or false que es el estado de active de los doctores buscados
+    setInProcess(true)
     dispatch(recoverDoctorsList(true));
   }, []);
 
@@ -123,6 +137,14 @@ function Landing() {
           </p>
         )}
       </div>
+
+      {inProcess && (
+        <Modal>
+          <ModalProcessing idMessage={2} />
+        </Modal>
+      )}      
+
+
     </div>
   );
 }

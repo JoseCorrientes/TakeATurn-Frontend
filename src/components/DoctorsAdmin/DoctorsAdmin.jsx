@@ -12,6 +12,8 @@ import {
   recoverDoctorPassword,
   sendDataLoginDoctor,
 } from "../../actions/actions";
+import ModalProcessing from "../ModalProcessing/ModalProcessing";
+import Modal from "../Modal/Modal";
 
 function LandingDoctors() {
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ function LandingDoctors() {
   const [visibleMessage, setVisibleMessage] = useState(false);
   const [recoverPasswordOk, setRecoverPasswordOk] = useState(false);
   const [recoverPasswordError, setRecoverPasswordError] = useState(false);
+  const [inProcess, setInProcess] = useState(false)  
 
   const loginDoctorError = useSelector((state) => state.loginDoctorError);
   const loginDoctorValid = useSelector((state) => state.loginDoctorValid);
@@ -66,6 +69,7 @@ function LandingDoctors() {
 
   //useEffect que borra los mensajes de error que aparecen
   useEffect(() => {
+    setInProcess(false)
     setVisibleMessage(true);
     if (loginDoctorError == 2 || loginDoctorError == 3) {
       setTimeout(() => {
@@ -114,6 +118,7 @@ function LandingDoctors() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setInProcess(true)
     let data = { email, password };
     let valor = encryptData(data);
     dispatch(sendDataLoginDoctor(valor));
@@ -240,6 +245,16 @@ function LandingDoctors() {
           </div>
         )}
       </div>
+
+
+      {inProcess && (
+        <Modal>
+          <ModalProcessing idMessage={1} />
+        </Modal>
+      )}      
+
+
+
     </div>
   );
 }

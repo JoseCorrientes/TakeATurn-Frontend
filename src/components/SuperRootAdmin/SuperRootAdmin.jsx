@@ -10,6 +10,8 @@ import {
   clearLoginAdminError,
   sendDataLoginAdmin,
 } from "../../actions/actions";
+import Modal from "../Modal/Modal";
+import ModalProcessing from "../ModalProcessing/ModalProcessing";
 
 function LandingAdmin() {
   const dispatch = useDispatch();
@@ -19,6 +21,8 @@ function LandingAdmin() {
   const [passwordValid, setPasswordValid] = useState(false);
   const [visible, setVisible] = useState(true);
   const [visibleMessage, setVisibleMessage] = useState(false);
+  const [inProcess, setInProcess] = useState(false);
+
   const loginAdminError = useSelector((state) => state.loginAdminError);
   const loginAdminValid = useSelector((state) => state.loginAdminValid);
 
@@ -26,6 +30,8 @@ function LandingAdmin() {
 
   //useEffect que borra los mensajes de error que aparecen
   useEffect(() => {
+    setInProcess(false);
+
     setVisibleMessage(true);
     if (loginAdminError == 2 || loginAdminError == 3) {
       setTimeout(() => {
@@ -67,6 +73,7 @@ function LandingAdmin() {
     e.preventDefault();
     let data = { email, password };
     let valor = encryptData(data);
+    setInProcess(true);
     dispatch(sendDataLoginAdmin(valor));
   };
 
@@ -141,6 +148,12 @@ function LandingAdmin() {
           </p>
         )}
       </div>
+
+      {inProcess && (
+        <Modal>
+          <ModalProcessing idMessage={1} />
+        </Modal>
+      )}
     </div>
   );
 }
